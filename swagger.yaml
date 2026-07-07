@@ -1,0 +1,68 @@
+openapi: 3.0.3
+info:
+  title: Orbit API
+  version: 1.0.0
+  description: Team project management API
+servers:
+  - url: http://localhost:4000
+paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: API is healthy
+  /api/auth/register:
+    post:
+      summary: Register user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                fullName:
+                  type: string
+      responses:
+        "201":
+          description: User registered
+  /api/auth/login:
+    post:
+      summary: Login user
+      responses:
+        "200":
+          description: Login successful
+  /api/projects:
+    get:
+      summary: List projects
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Project list
+    post:
+      summary: Create project
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Project created
+  /api/tasks:
+    post:
+      summary: Create task
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Task created
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
