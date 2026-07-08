@@ -2,7 +2,7 @@
 
 # 🛰️ Orbit Task Platform
 
-**پلتفرم مدیریت پروژه و وظایف تیمی — بک‌اند production-style با Node.js**
+**A production-style team project & task management backend built with Node.js**
 
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -13,112 +13,112 @@
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
-[ویژگی‌ها](#-ویژگیها) •
-[شروع سریع](#-شروع-سریع) •
-[مستندات API](#-مستندات-api) •
-[معماری](#-معماری-پروژه) •
-[Docker](#-اجرای-با-docker) •
-[تست](#-تستها)
+[Features](#-features) •
+[Quick Start](#-quick-start) •
+[API Docs](#-api-documentation) •
+[Architecture](#-project-architecture) •
+[Docker](#-running-with-docker) •
+[Tests](#-tests)
 
 </div>
 
 ---
 
-## 📖 درباره پروژه
+## 📖 About
 
-**Orbit Task Platform** (Orbit API) یک بک‌اند کامل و production-style برای مدیریت پروژه‌ها و وظایف تیمی است. این پروژه به‌عنوان یک نمونه‌کار (portfolio) طراحی شده و الگوهای رایج صنعت نرم‌افزار را در خود جای داده است:
+**Orbit Task Platform** (Orbit API) is a full-featured, production-style backend for team project and task management. It is designed as a portfolio project and demonstrates common industry patterns:
 
-- معماری ماژولار و domain-driven
-- احراز هویت امن با JWT
-- اعتبارسنجی ورودی با Zod
-- کش Redis برای بهبود عملکرد
-- Rate limiting برای محافظت در برابر سوءاستفاده
-- مستندسازی تعاملی با Swagger UI
-- تست‌های یکپارچه‌سازی با Vitest و Supertest
-- کانتینرسازی کامل با Docker Compose
+- Modular, domain-driven architecture
+- Secure JWT authentication
+- Request validation with Zod
+- Redis caching for performance
+- Rate limiting to prevent abuse
+- Interactive API documentation with Swagger UI
+- Integration tests with Vitest and Supertest
+- Full containerization with Docker Compose
 
-این مخزن برای نمایش مهارت‌های backend development — از طراحی API تا deploy — مناسب است.
+This repository is ideal for showcasing backend development skills — from API design to deployment.
 
 ---
 
-## ✨ ویژگی‌ها
+## ✨ Features
 
-### احراز هویت و کاربران
-- ثبت‌نام و ورود کاربر با JWT
-- هش کردن رمز عبور با bcrypt (cost factor: 12)
-- نقش‌های کاربری: `ADMIN` و `MEMBER`
-- endpoint پروفایل کاربر (`GET /api/users/me`)
+### Authentication & Users
+- User registration and login with JWT
+- Password hashing with bcrypt (cost factor: 12)
+- User roles: `ADMIN` and `MEMBER`
+- User profile endpoint (`GET /api/users/me`)
 
-### مدیریت پروژه
-- ایجاد پروژه با عنوان و توضیحات
-- لیست پروژه‌های متعلق به کاربر احراز هویت‌شده
-- هر پروژه شامل وظایف مرتبط (eager load) است
+### Project Management
+- Create projects with title and description
+- List projects owned by the authenticated user
+- Each project includes related tasks (eager loaded)
 
-### مدیریت وظایف
-- ایجاد وظیفه با عنوان، جزئیات، پروژه و تاریخ سررسید
-- به‌روزرسانی وضعیت وظیفه: `TODO` → `IN_PROGRESS` → `DONE`
-- تخصیص خودکار وظیفه به کاربر ایجادکننده
+### Task Management
+- Create tasks with title, details, project, and optional due date
+- Update task status: `TODO` → `IN_PROGRESS` → `DONE`
+- Auto-assign tasks to the creating user
 
-### زیرساخت و امنیت
-- **Redis caching**: کش لیست پروژه‌ها (TTL: 30 ثانیه) با invalidation هنگام ایجاد پروژه
-- **Rate limiting**: حداکثر 100 درخواست در دقیقه به ازای هر IP
-- **Helmet**: هدرهای امنیتی HTTP
-- **CORS**: پشتیبانی از cross-origin requests
-- **اعتبارسنجی env**: متغیرهای محیطی با Zod parse می‌شوند
+### Infrastructure & Security
+- **Redis caching**: project list cache (TTL: 30 seconds) with invalidation on project creation
+- **Rate limiting**: max 100 requests per minute per IP
+- **Helmet**: HTTP security headers
+- **CORS**: cross-origin request support
+- **Env validation**: environment variables parsed and validated with Zod
 
-### توسعه و DevOps
-- TypeScript با strict typing
+### Development & DevOps
+- TypeScript with strict typing
 - ESLint + Prettier
-- Swagger UI در مسیر `/docs`
-- Dockerfile و docker-compose برای اجرای یک‌فرمانه
-- Prisma Migrate برای مدیریت schema دیتابیس
+- Swagger UI at `/docs`
+- Dockerfile and docker-compose for one-command startup
+- Prisma Migrate for database schema management
 
 ---
 
-## 🛠️ تکنولوژی‌ها
+## 🛠️ Tech Stack
 
-| لایه | ابزار |
-|------|-------|
+| Layer | Tool |
+|-------|------|
 | Runtime | Node.js ≥ 20 |
 | Framework | Express 5 |
-| زبان | TypeScript 5.9 |
+| Language | TypeScript 5.9 |
 | ORM | Prisma 7 |
-| دیتابیس | PostgreSQL 16 |
-| کش / Rate limit | Redis 7 |
-| احراز هویت | JWT (jsonwebtoken) + bcryptjs |
-| اعتبارسنجی | Zod 4 |
-| مستندات API | Swagger (OpenAPI 3.0) + swagger-ui-express |
-| تست | Vitest + Supertest |
-| کیفیت کد | ESLint 9 + Prettier |
-| کانتینر | Docker + Docker Compose |
+| Database | PostgreSQL 16 |
+| Cache / Rate limit | Redis 7 |
+| Authentication | JWT (jsonwebtoken) + bcryptjs |
+| Validation | Zod 4 |
+| API Docs | Swagger (OpenAPI 3.0) + swagger-ui-express |
+| Testing | Vitest + Supertest |
+| Code Quality | ESLint 9 + Prettier |
+| Containerization | Docker + Docker Compose |
 
 ---
 
-## 🏗️ معماری پروژه
+## 🏗️ Project Architecture
 
 ```
 orbit-task-platform/
 ├── prisma/
-│   └── schema.prisma          # مدل داده: User, Project, Task
+│   └── schema.prisma          # Data models: User, Project, Task
 ├── src/
 │   ├── config/
 │   │   ├── db.ts              # Prisma client
-│   │   ├── env.ts             # اعتبارسنجی متغیرهای محیطی
-│   │   └── redis.ts           # اتصال Redis
+│   │   ├── env.ts             # Environment variable validation
+│   │   └── redis.ts           # Redis connection
 │   ├── middlewares/
 │   │   ├── auth.ts            # JWT authentication guard
-│   │   ├── errorHandler.ts    # مدیریت خطای سراسری
-│   │   ├── rateLimit.ts       # محدودیت نرخ درخواست
+│   │   ├── errorHandler.ts    # Global error handling
+│   │   ├── rateLimit.ts       # Request rate limiting
 │   │   └── validate.ts        # Zod request validation
 │   ├── modules/
-│   │   ├── auth/              # ثبت‌نام و ورود
-│   │   ├── users/             # پروفایل کاربر
-│   │   ├── projects/          # CRUD پروژه + کش
-│   │   └── tasks/             # ایجاد و به‌روزرسانی وظیفه
+│   │   ├── auth/              # Register & login
+│   │   ├── users/             # User profile
+│   │   ├── projects/          # Project CRUD + caching
+│   │   └── tasks/             # Task creation & status updates
 │   ├── utils/
-│   │   └── jwt.ts             # sign / verify توکن
-│   ├── app.ts                 # Express app و middlewareها
-│   ├── server.ts              # bootstrap و اتصال به DB/Redis
+│   │   └── jwt.ts             # Token sign / verify
+│   ├── app.ts                 # Express app & middleware
+│   ├── server.ts              # Bootstrap & DB/Redis connection
 │   └── types.ts
 ├── tests/
 │   ├── auth.test.ts
@@ -129,7 +129,7 @@ orbit-task-platform/
 └── package.json
 ```
 
-### جریان درخواست (Request Flow)
+### Request Flow
 
 ```
 Client Request
@@ -168,7 +168,7 @@ Client Request
 
 ---
 
-## 🗄️ مدل داده
+## 🗄️ Data Model
 
 ```
 ┌──────────────┐       ┌──────────────┐       ┌──────────────┐
@@ -185,106 +185,106 @@ Client Request
                                               └──────────────┘
 ```
 
-### Enumها
+### Enums
 
-| Enum | مقادیر |
+| Enum | Values |
 |------|--------|
 | `Role` | `ADMIN`, `MEMBER` |
 | `TaskStatus` | `TODO`, `IN_PROGRESS`, `DONE` |
 
-### روابط
-- هر **User** می‌تواند مالک چند **Project** باشد (`onDelete: Cascade`)
-- هر **Project** شامل چند **Task** است (`onDelete: Cascade`)
-- هر **Task** می‌تواند به یک **User** به‌عنوان assignee اختصاص یابد (`onDelete: SetNull`)
+### Relationships
+- Each **User** can own multiple **Projects** (`onDelete: Cascade`)
+- Each **Project** contains multiple **Tasks** (`onDelete: Cascade`)
+- Each **Task** can be assigned to a **User** as assignee (`onDelete: SetNull`)
 
 ---
 
-## 🚀 شروع سریع
+## 🚀 Quick Start
 
-### پیش‌نیازها
+### Prerequisites
 
-- [Node.js](https://nodejs.org/) نسخه 20 یا بالاتر
-- [PostgreSQL](https://www.postgresql.org/) 16 (یا Docker)
-- [Redis](https://redis.io/) 7 (یا Docker)
+- [Node.js](https://nodejs.org/) 20 or higher
+- [PostgreSQL](https://www.postgresql.org/) 16 (or Docker)
+- [Redis](https://redis.io/) 7 (or Docker)
 - npm
 
-### نصب محلی
+### Local Setup
 
-**1. کلون مخزن**
+**1. Clone the repository**
 
 ```bash
 git clone https://github.com/mahdi-esmaeilnezhad/orbit-task-platform.git
 cd orbit-task-platform
 ```
 
-**2. تنظیم متغیرهای محیطی**
+**2. Configure environment variables**
 
 ```bash
 cp .env.example .env
 ```
 
-فایل `.env` را ویرایش کنید (جزئیات در [بخش Environment Variables](#-متغیرهای-محیطی)).
+Edit the `.env` file (see [Environment Variables](#-environment-variables) for details).
 
-**3. نصب وابستگی‌ها**
+**3. Install dependencies**
 
 ```bash
 npm install
 ```
 
-**4. تولید Prisma Client**
+**4. Generate Prisma Client**
 
 ```bash
 npx prisma generate
 ```
 
-**5. اجرای migration**
+**5. Run migrations**
 
 ```bash
 npx prisma migrate dev --name init
 ```
 
-**6. اجرای سرور توسعه**
+**6. Start the development server**
 
 ```bash
 npm run dev
 ```
 
-سرور روی `http://localhost:4000` اجرا می‌شود.
+The server runs at `http://localhost:4000`.
 
-| مسیر | توضیح |
-|------|-------|
+| URL | Description |
+|-----|-------------|
 | `http://localhost:4000/health` | Health check |
 | `http://localhost:4000/docs` | Swagger UI |
 | `http://localhost:4000/api/*` | REST API |
 
 ---
 
-## 🐳 اجرای با Docker
+## 🐳 Running with Docker
 
-ساده‌ترین روش اجرای کل stack (API + PostgreSQL + Redis):
+The easiest way to run the full stack (API + PostgreSQL + Redis):
 
 ```bash
 cp .env.example .env
 docker compose up --build
 ```
 
-Docker Compose سه سرویس را بالا می‌آورد:
+Docker Compose starts three services:
 
-| سرویس | Container | پورت |
-|--------|-----------|------|
+| Service | Container | Port |
+|---------|-----------|------|
 | API | `orbit-api` | `4000` |
 | PostgreSQL | `orbit-postgres` | `5432` |
 | Redis | `orbit-redis` | `6379` |
 
-> هنگام استارت، container API به‌صورت خودکار `prisma migrate deploy` را اجرا کرده و سپس `npm start` را فراخوانی می‌کند.
+> On startup, the API container automatically runs `prisma migrate deploy` and then `npm start`.
 
-برای توقف:
+To stop:
 
 ```bash
 docker compose down
 ```
 
-برای حذف volume دیتابیس:
+To remove the database volume:
 
 ```bash
 docker compose down -v
@@ -292,18 +292,18 @@ docker compose down -v
 
 ---
 
-## ⚙️ متغیرهای محیطی
+## ⚙️ Environment Variables
 
-| متغیر | پیش‌فرض | توضیح |
-|-------|---------|-------|
-| `NODE_ENV` | `development` | محیط اجرا: `development` \| `test` \| `production` |
-| `PORT` | `4000` | پورت سرور HTTP |
-| `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/orbit` | connection string PostgreSQL |
-| `JWT_SECRET` | — | کلید امضای JWT (حداقل 10 کاراکتر) |
-| `JWT_EXPIRES_IN` | `1d` | مدت اعتبار توکن (مثلاً `1d`, `7d`, `12h`) |
-| `REDIS_URL` | `redis://localhost:6379` | آدرس Redis |
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `NODE_ENV` | `development` | Runtime environment: `development` \| `test` \| `production` |
+| `PORT` | `4000` | HTTP server port |
+| `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/orbit` | PostgreSQL connection string |
+| `JWT_SECRET` | — | JWT signing key (minimum 10 characters) |
+| `JWT_EXPIRES_IN` | `1d` | Token expiration (e.g. `1d`, `7d`, `12h`) |
+| `REDIS_URL` | `redis://localhost:6379` | Redis address |
 
-### نمونه `.env` برای Docker
+### Sample `.env` for Docker
 
 ```env
 NODE_ENV=production
@@ -314,15 +314,15 @@ JWT_EXPIRES_IN=1d
 REDIS_URL=redis://redis:6379
 ```
 
-> ⚠️ در production حتماً `JWT_SECRET` قوی و یکتا تنظیم کنید و آن را در مخزن commit نکنید.
+> ⚠️ In production, always use a strong, unique `JWT_SECRET` and never commit it to the repository.
 
 ---
 
-## 📡 مستندات API
+## 📡 API Documentation
 
-### احراز هویت
+### Authentication
 
-تمام endpointهای محافظت‌شده نیاز به هدر زیر دارند:
+All protected endpoints require the following header:
 
 ```
 Authorization: Bearer <your_jwt_token>
@@ -332,7 +332,7 @@ Authorization: Bearer <your_jwt_token>
 
 ### `GET /health`
 
-بررسی سلامت API — بدون نیاز به احراز هویت.
+API health check — no authentication required.
 
 **Response `200`**
 
@@ -346,7 +346,7 @@ Authorization: Bearer <your_jwt_token>
 
 ### `POST /api/auth/register`
 
-ثبت‌نام کاربر جدید.
+Register a new user.
 
 **Request Body**
 
@@ -354,15 +354,15 @@ Authorization: Bearer <your_jwt_token>
 {
   "email": "user@example.com",
   "password": "Password123",
-  "fullName": "علی محمدی"
+  "fullName": "John Doe"
 }
 ```
 
-| فیلد | قوانین |
-|------|--------|
-| `email` | فرمت ایمیل معتبر |
-| `password` | حداقل 8 کاراکتر |
-| `fullName` | حداقل 2 کاراکتر |
+| Field | Rules |
+|-------|-------|
+| `email` | Valid email format |
+| `password` | Minimum 8 characters |
+| `fullName` | Minimum 2 characters |
 
 **Response `201`**
 
@@ -372,7 +372,7 @@ Authorization: Bearer <your_jwt_token>
 }
 ```
 
-**Response `409`** — ایمیل تکراری
+**Response `409`** — duplicate email
 
 ```json
 {
@@ -384,7 +384,7 @@ Authorization: Bearer <your_jwt_token>
 
 ### `POST /api/auth/login`
 
-ورود کاربر.
+Log in a user.
 
 **Request Body**
 
@@ -415,7 +415,7 @@ Authorization: Bearer <your_jwt_token>
 
 ### `GET /api/users/me`
 
-دریافت پروفایل کاربر احراز هویت‌شده. 🔒
+Get the authenticated user's profile. 🔒
 
 **Response `200`**
 
@@ -423,7 +423,7 @@ Authorization: Bearer <your_jwt_token>
 {
   "id": "clx...",
   "email": "user@example.com",
-  "fullName": "علی محمدی",
+  "fullName": "John Doe",
   "role": "MEMBER",
   "createdAt": "2026-01-15T10:00:00.000Z"
 }
@@ -433,10 +433,10 @@ Authorization: Bearer <your_jwt_token>
 
 ### `GET /api/projects`
 
-لیست پروژه‌های متعلق به کاربر جاری (با وظایف). 🔒
+List projects owned by the current user (with tasks). 🔒
 
-- نتیجه از **Redis cache** خوانده می‌شود (TTL: 30 ثانیه)
-- کلید کش: `projects:{userId}`
+- Results are served from **Redis cache** (TTL: 30 seconds)
+- Cache key: `projects:{userId}`
 
 **Response `200`**
 
@@ -444,8 +444,8 @@ Authorization: Bearer <your_jwt_token>
 [
   {
     "id": "clx...",
-    "title": "پروژه Orbit",
-    "description": "پلتفرم مدیریت وظایف تیمی",
+    "title": "Orbit Project",
+    "description": "Team task management platform",
     "ownerId": "clx...",
     "createdAt": "2026-01-15T10:00:00.000Z",
     "updatedAt": "2026-01-15T10:00:00.000Z",
@@ -458,57 +458,57 @@ Authorization: Bearer <your_jwt_token>
 
 ### `POST /api/projects`
 
-ایجاد پروژه جدید. 🔒
+Create a new project. 🔒
 
 **Request Body**
 
 ```json
 {
-  "title": "پروژه Orbit",
-  "description": "پلتفرم مدیریت وظایف تیمی"
+  "title": "Orbit Project",
+  "description": "Team task management platform"
 }
 ```
 
-| فیلد | قوانین |
-|------|--------|
-| `title` | حداقل 3 کاراکتر |
-| `description` | حداقل 10 کاراکتر |
+| Field | Rules |
+|-------|-------|
+| `title` | Minimum 3 characters |
+| `description` | Minimum 10 characters |
 
-**Response `201`** — شیء پروژه ایجادشده
+**Response `201`** — created project object
 
-> پس از ایجاد، کش پروژه‌های کاربر invalidate می‌شود.
+> After creation, the user's project cache is invalidated.
 
 ---
 
 ### `POST /api/tasks`
 
-ایجاد وظیفه جدید. 🔒
+Create a new task. 🔒
 
 **Request Body**
 
 ```json
 {
-  "title": "پیاده‌سازی API",
-  "details": "ساخت endpointهای auth و projects",
+  "title": "Implement API",
+  "details": "Build auth and project endpoints",
   "projectId": "clx_project_id",
   "dueDate": "2026-02-01T00:00:00.000Z"
 }
 ```
 
-| فیلد | قوانین |
-|------|--------|
-| `title` | حداقل 3 کاراکتر |
-| `details` | حداقل 5 کاراکتر |
-| `projectId` | شناسه پروژه (حداقل 5 کاراکتر) |
-| `dueDate` | اختیاری — ISO 8601 datetime |
+| Field | Rules |
+|-------|-------|
+| `title` | Minimum 3 characters |
+| `details` | Minimum 5 characters |
+| `projectId` | Project ID (minimum 5 characters) |
+| `dueDate` | Optional — ISO 8601 datetime |
 
-**Response `201`** — شیء وظیفه با `status: "TODO"`
+**Response `201`** — task object with `status: "TODO"`
 
 ---
 
 ### `PATCH /api/tasks/:id/status`
 
-به‌روزرسانی وضعیت وظیفه. 🔒
+Update a task's status. 🔒
 
 **Request Body**
 
@@ -518,23 +518,23 @@ Authorization: Bearer <your_jwt_token>
 }
 ```
 
-مقادیر مجاز: `TODO` | `IN_PROGRESS` | `DONE`
+Allowed values: `TODO` | `IN_PROGRESS` | `DONE`
 
-**Response `200`** — شیء وظیفه به‌روزشده
+**Response `200`** — updated task object
 
 ---
 
-### کدهای خطای رایج
+### Common Error Codes
 
-| کد | معنی |
-|----|------|
-| `400` | خطای اعتبارسنجی (Zod) |
-| `401` | عدم احراز هویت یا credentials نامعتبر |
-| `409` | تداخل (مثلاً ایمیل تکراری) |
-| `429` | تعداد درخواست بیش از حد (rate limit) |
-| `500` | خطای داخلی سرور |
+| Code | Meaning |
+|------|---------|
+| `400` | Validation error (Zod) |
+| `401` | Unauthorized or invalid credentials |
+| `409` | Conflict (e.g. duplicate email) |
+| `429` | Too many requests (rate limit) |
+| `500` | Internal server error |
 
-**نمونه خطای اعتبارسنجی**
+**Sample validation error**
 
 ```json
 {
@@ -555,113 +555,113 @@ Authorization: Bearer <your_jwt_token>
 
 ### Swagger UI
 
-مستندات تعاملی OpenAPI در آدرس زیر در دسترس است:
+Interactive OpenAPI documentation is available at:
 
 ```
 http://localhost:4000/docs
 ```
 
-فایل specification: [`swagger.yaml`](./swagger.yaml)
+Specification file: [`swagger.yaml`](./swagger.yaml)
 
 ---
 
-## 🧪 تست‌ها
+## 🧪 Tests
 
-پروژه از **Vitest** و **Supertest** برای تست یکپارچه‌سازی API استفاده می‌کند. Prisma و Redis در تست‌ها mock می‌شوند.
+The project uses **Vitest** and **Supertest** for API integration tests. Prisma and Redis are mocked in tests.
 
 ```bash
-# اجرای یک‌باره
+# Run once
 npm test
 
-# حالت watch
+# Watch mode
 npm run test:watch
 ```
 
-### تست‌های موجود
+### Test Coverage
 
-| فایل | پوشش |
-|------|------|
+| File | Coverage |
+|------|----------|
 | `tests/health.test.ts` | `GET /health` |
 | `tests/auth.test.ts` | `POST /api/auth/register` |
 
 ---
 
-## 📜 اسکریپت‌های npm
+## 📜 npm Scripts
 
-| دستور | توضیح |
-|-------|-------|
-| `npm run dev` | اجرای سرور با hot-reload (`tsx watch`) |
-| `npm run build` | کامپایل TypeScript به `dist/` |
-| `npm run start` | اجرای نسخه build‌شده |
-| `npm run lint` | بررسی ESLint |
-| `npm run lint:fix` | رفع خودکار خطاهای ESLint |
-| `npm run format` | فرمت کد با Prettier |
-| `npm run test` | اجرای تست‌ها |
-| `npm run test:watch` | تست در حالت watch |
-
----
-
-## 🔒 نکات امنیتی
-
-- رمز عبور با **bcrypt** (12 round) هش می‌شود — هرگز plain-text ذخیره نمی‌شود
-- JWT با secret قابل تنظیم امضا می‌شود
-- **Helmet** هدرهای امنیتی HTTP را تنظیم می‌کند
-- **Rate limiting** از حملات brute-force و DDoS سطح application جلوگیری می‌کند
-- اعتبارسنجی ورودی با **Zod** قبل از رسیدن به لایه دیتابیس
-- در production: `JWT_SECRET` قوی، HTTPS، و محدود کردن CORS
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start server with hot-reload (`tsx watch`) |
+| `npm run build` | Compile TypeScript to `dist/` |
+| `npm run start` | Run the built version |
+| `npm run lint` | Run ESLint |
+| `npm run lint:fix` | Auto-fix ESLint issues |
+| `npm run format` | Format code with Prettier |
+| `npm run test` | Run tests |
+| `npm run test:watch` | Run tests in watch mode |
 
 ---
 
-## 🗺️ نقشه راه (Roadmap)
+## 🔒 Security Notes
 
-ایده‌های توسعه آینده:
+- Passwords are hashed with **bcrypt** (12 rounds) — never stored in plain text
+- JWTs are signed with a configurable secret
+- **Helmet** sets HTTP security headers
+- **Rate limiting** helps mitigate brute-force and application-level DDoS
+- Input validation with **Zod** before reaching the database layer
+- In production: use a strong `JWT_SECRET`, HTTPS, and restrict CORS
 
-- [ ] Refresh token و logout
-- [ ] CRUD کامل برای tasks (ویرایش، حذف، فیلتر)
-- [ ] عضویت چند کاربر در یک پروژه (team members)
-- [ ] Pagination و sorting برای لیست‌ها
-- [ ] Webhook یا notification system
+---
+
+## 🗺️ Roadmap
+
+Future development ideas:
+
+- [ ] Refresh tokens and logout
+- [ ] Full task CRUD (update, delete, filter)
+- [ ] Multi-user project membership (team members)
+- [ ] Pagination and sorting for list endpoints
+- [ ] Webhook or notification system
 - [ ] CI/CD pipeline (GitHub Actions)
-- [ ] پوشش تست گسترده‌تر (projects, tasks, rate limit)
-- [ ] Role-based access control پیشرفته‌تر
+- [ ] Broader test coverage (projects, tasks, rate limit)
+- [ ] Advanced role-based access control
 
 ---
 
-## 🤝 مشارکت
+## 🤝 Contributing
 
-مشارکت شما خوش‌آمد است!
+Contributions are welcome!
 
-1. این مخزن را Fork کنید
-2. یک branch جدید بسازید: `git checkout -b feature/amazing-feature`
-3. تغییرات را commit کنید: `git commit -m 'Add amazing feature'`
-4. branch را push کنید: `git push origin feature/amazing-feature`
-5. یک Pull Request باز کنید
+1. Fork this repository
+2. Create a new branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
-لطفاً قبل از PR:
-- `npm run lint` و `npm test` را اجرا کنید
-- از `npm run format` برای یکدست‌سازی کد استفاده کنید
-
----
-
-## 💼 نکات رزومه
-
-این پروژه برای نمایش مهارت‌های زیر در رزومه مناسب است:
-
-- طراحی و پیاده‌سازی بک‌اند ماژولار TypeScript با Express، Prisma و PostgreSQL
-- پیاده‌سازی احراز هویت JWT و workflow اعتبارسنجی درخواست
-- بهبود عملکرد API با Redis caching و rate limiting
-- کانتینرسازی سرویس‌ها با Docker Compose
-- نوشتن تست یکپارچه‌سازی برای endpointهای حیاتی با Vitest و Supertest
+Before submitting a PR:
+- Run `npm run lint` and `npm test`
+- Use `npm run format` to keep code style consistent
 
 ---
 
-## 📄 لایسنس
+## 💼 Resume Highlights
 
-این پروژه تحت لایسنس **MIT** منتشر شده است. جزئیات در فایل [LICENSE](LICENSE).
+This project is well-suited for demonstrating the following skills on a resume:
+
+- Designed and implemented a modular TypeScript backend with Express, Prisma, and PostgreSQL
+- Built secure JWT authentication and request validation workflows
+- Improved API performance with Redis caching and rate limiting
+- Containerized services with Docker Compose
+- Wrote integration tests for critical API endpoints with Vitest and Supertest
 
 ---
 
-## 👤 نویسنده
+## 📄 License
+
+This project is released under the **MIT** License. See [LICENSE](LICENSE) for details.
+
+---
+
+## 👤 Author
 
 **Mahdi Esmaeilnezhad**
 
@@ -672,6 +672,6 @@ npm run test:watch
 
 <div align="center">
 
-اگر این پروژه برایتان مفید بود، یک ⭐ روی GitHub بگذارید!
+If you find this project useful, give it a ⭐ on GitHub!
 
 </div>
